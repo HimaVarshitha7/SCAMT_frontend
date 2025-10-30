@@ -43,7 +43,6 @@ const Services = () => {
           {
             title: "Voice Call Alerts",
             desc: "Send automated voice updates for workers and residents who prefer calls over messages.",
-            path: "/VoiceCallAlerts",
           },
           {
             title: "Analytics Dashboard",
