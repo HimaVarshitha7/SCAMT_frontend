@@ -11,7 +11,7 @@ import Feedback from "./pages/Feedback";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ThankYou from "./pages/ThankYou";
-import Profile from "./pages/profile";
+import Profile from "./pages/Profile";
 import Track from "./pages/Track";
 import "./App.css";
 
