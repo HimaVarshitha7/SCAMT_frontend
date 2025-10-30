@@ -27,12 +27,15 @@ const Feedback = () => {
         return;
       }
 
-      const res = await axios.post(
-        "http://localhost:5000/api/feedback",
-        {
-          message: form.message,
-          rating: form.rating,
-        },
+      const API_URL = import.meta.env.VITE_API_URL || "https://scamt-backend-1.onrender.com/";
+
+const res = await axios.post(
+  `${API_URL}/feedback`,
+  {
+    message: form.message,
+    rating: form.rating,
+  },
+
         {
           headers: {
             "Content-Type": "application/json",

@@ -14,7 +14,7 @@ export async function apiRequest(endpoint, options = {}) {
     };
 
     try {
-        const response = await fetch(`https://scamt.vercel.app${endpoint}`, defaultOptions);
+        const response = await fetch(`https://scamt-backend-1.onrender.com/${endpoint}`, defaultOptions);
 
         if (!response.ok) {
             throw new Error(`${response.status}: ${response.statusText}`);

@@ -32,58 +32,40 @@ const Complaint = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const token = localStorage.getItem("authToken"); // user auth token
-      if (!token) {
-        alert("You must be logged in to file a complaint.");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append('flat', form.flat);
-      formData.append('service', form.service);
-      if (form.service === 'other') {
-        formData.append('other', form.other);
-      }
-      formData.append('description', form.description);
-      if (selectedFile) {
-        formData.append('image', selectedFile);
-      }
-
-      const res = await axios.post(
-        "http://localhost:5000/api/complaints",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      console.log("Complaint saved:", res.data);
-
-      // Optional progress animation
-      let p = 0;
-      const id = setInterval(() => {
-        p += 10;
-        setProgress(p);
-        if (p >= 100) {
-          clearInterval(id);
-          alert("✅ Complaint submitted successfully!");
-          setForm({ flat: "", service: "", other: "", description: "" });
-          setSelectedFile(null);
-          setProgress(0);
-          navigate("/thankyou");
-        }
-      }, 100);
-    } catch (err) {
-      console.error("Complaint submission error:", err);
-      alert("❌ Failed to submit complaint. Please try again.");
+  try {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      alert("You must be logged in to file a complaint.");
+      return;
     }
-  };
+
+    const formData = new FormData();
+    formData.append("flat", form.flat);
+    formData.append("service", form.service);
+    if (form.service === "other") formData.append("other", form.other);
+    formData.append("description", form.description);
+    if (selectedFile) formData.append("image", selectedFile);
+
+    const API_URL = import.meta.env.VITE_API_URL || "https://scamt-backend-1.onrender.com/";
+
+    const res = await axios.post(`${API_URL}/complaints`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("Complaint saved:", res.data);
+    alert("✅ Complaint submitted successfully!");
+    navigate("/thankyou");
+
+  } catch (err) {
+    console.error("Complaint submission error:", err);
+    alert("❌ Failed to submit complaint. Please try again.");
+  }
+};
 
   return (
     <section className="complaint-section">
