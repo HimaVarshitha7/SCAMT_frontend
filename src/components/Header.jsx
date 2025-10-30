@@ -17,7 +17,6 @@ const Header = () => {
         <img src={logo} alt="CommUnityCare Logo" className="logo-img" />
         <h1 className="logo">CommUnityCare</h1>
       </div>
-
       <nav className="navbar">
         <ul>
           <li><NavLink to="/">Home</NavLink></li>
@@ -25,15 +24,15 @@ const Header = () => {
           <li><NavLink to="/complaint">Complaint</NavLink></li>
           <li><NavLink to="/feedback">Feedback</NavLink></li>
           <li><NavLink to="/profile">Profile</NavLink></li>
+          
+          {isAuthenticated ? (
+            <li className="user-info">
+              <span>Welcome, {user?.name || user?.role}</span>
+              <button onClick={handleLogout} className="logout-btn">Logout</button>
+            </li>
+          ) : null}
         </ul>
       </nav>
-
-      {isAuthenticated && (
-        <div className="user-info">
-          <span>Welcome, {user?.name || user?.role}</span>
-          <button onClick={handleLogout} className="logout-btn">Logout</button>
-        </div>
-      )}
     </header>
   );
 };
